@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="my_robot_arm">
+  
+  <material name="silver">
+    <color rgba="0.75 0.75 0.75 1"/>
+  </material>
+
+  <material name="orange">
+        <color rgba="1 0.3 0.1 1" />
+  </material>
+
+  <link name="world">
+
+  </link>
+
+  <link name="base_link">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.2 0.2 0.1"/>
+      </geometry>
+      <material name="silver"/>
+    </visual>
+  </link>
+
+
+  <link name="link1">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.25"/>
+      <geometry>
+        <box size="0.1 0.1 0.75"/>
+      </geometry>
+      <material name="silver"/>
+    </visual>
+  </link>
+
+   <link name="cylinder1_to_2">
+    <visual>
+      <origin rpy="0 1.57 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.1" length="0.15"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+  </link>
+
+  <link name="link2">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.35"/>
+      <geometry>
+        <box size="0.1 0.1 0.5"/>
+      </geometry>
+      <material name="silver"/>
+    </visual>
+  </link>
+
+  <link name="cylinder2_to_3">
+    <visual>
+      <origin rpy="0 1.57 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.1" length="0.15"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+  </link>
+
+  <link name="link3">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.25"/>
+      <geometry>
+        <box size="0.1 0.1 0.4"/>
+      </geometry>
+      <material name="silver"/>
+    </visual>
+  </link>
+
+
+  <joint name="joint1" type="fixed">
+    <parent link="world"/>
+    <child link="base_link"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+
+  <joint name="joint2" type="revolute">
+    <parent link="base_link"/>
+    <child link="link1"/>
+    <origin rpy="0 0 0" xyz="0 0 0.1"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="100.0" velocity="1.0"/>
+  </joint>
+
+  <joint name="joint3" type="revolute">
+    <parent link="link1"/>
+    <child link="cylinder1_to_2"/>
+    <origin rpy="0 0 0" xyz="0 0 0.0"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="100.0" lower="-0.1" upper="0.1" velocity="1.0"/>
+  </joint>
+
+  <joint name="joint4" type="continuous">
+    <parent link="cylinder1_to_2"/>
+    <child link="link2"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+
+  <joint name="joint5" type="revolute">
+    <parent link="link2"/>
+    <child link="cylinder2_to_3"/>
+    <origin rpy="0 0 0" xyz="0 0 0.0"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="100.0" velocity="1.0"/>
+  </joint>
+
+  <joint name="joint6" type="continuous">
+    <parent link="cylinder2_to_3"/>
+    <child link="link3"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+
+  
+
+
+</robot>
